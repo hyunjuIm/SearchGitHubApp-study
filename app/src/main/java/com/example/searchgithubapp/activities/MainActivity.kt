@@ -1,8 +1,9 @@
-package com.example.searchgithubapp
+package com.example.searchgithubapp.activities
 
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.searchgithubapp.BuildConfig
 import com.example.searchgithubapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
