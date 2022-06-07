@@ -10,14 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.view.isGone
 import com.example.searchgithubapp.BuildConfig
-import com.example.searchgithubapp.databinding.ActivityMainBinding
+import com.example.searchgithubapp.MainActivity
+import com.example.searchgithubapp.databinding.ActivitySignInBinding
 import com.example.searchgithubapp.utillity.AuthTokenProvider
 import com.example.searchgithubapp.utillity.RetrofitUtil
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class MainActivity : AppCompatActivity(), CoroutineScope {
-    private lateinit var binding: ActivityMainBinding
+class SignInActivity : AppCompatActivity(), CoroutineScope {
+    private lateinit var binding: ActivitySignInBinding
 
     private val authTokenProvider by lazy { AuthTokenProvider(this) }
 
@@ -28,10 +29,15 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initView()
+        if (checkAuthCodeExist()) {
+            launchMainActivity()
+        } else {
+            initView()
+
+        }
     }
 
     private fun initView() = with(binding) {
@@ -39,6 +45,15 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             loginGithub()
         }
     }
+
+    private fun launchMainActivity(){
+        startActivity(Intent(this, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        })
+    }
+
+    private fun checkAuthCodeExist(): Boolean = authTokenProvider.token.isNullOrEmpty().not()
 
     private fun loginGithub() {
         val loginUri = Uri.Builder().scheme("https").authority("github.com")
@@ -94,7 +109,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             if (accessToken.isNotEmpty()) {
                 authTokenProvider.updateToken(accessToken)
             } else {
-                Toast.makeText(this@MainActivity, "accessToken이 존재하지 않습니다.", Toast.LENGTH_SHORT)
+                Toast.makeText(this@SignInActivity, "accessToken이 존재하지 않습니다.", Toast.LENGTH_SHORT)
                     .show()
             }
         }
