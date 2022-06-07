@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.view.isGone
 import com.example.searchgithubapp.BuildConfig
 import com.example.searchgithubapp.databinding.ActivityMainBinding
 import com.example.searchgithubapp.utillity.AuthTokenProvider
@@ -57,8 +58,26 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
         intent?.data?.getQueryParameter("code")?.let {
             launch(coroutineContext) {
+                showProgress()
                 val getAccessTokenJob = getAccessToken(it)
+                dismissProgress()
             }
+        }
+    }
+
+    private suspend fun showProgress() = withContext(coroutineContext) {
+        with(binding) {
+            loginButton.isGone = true
+            progressBar.isGone = false
+            progressTextView.isGone = false
+        }
+    }
+
+    private suspend fun dismissProgress() = withContext(coroutineContext) {
+        with(binding) {
+            loginButton.isGone = false
+            progressBar.isGone = true
+            progressTextView.isGone = true
         }
     }
 
