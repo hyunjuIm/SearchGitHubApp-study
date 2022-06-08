@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SearchGitHubApp">
         <activity
+            android:name=".activities.SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.SignInActivity"
             android:exported="true"
             android:launchMode="singleTask">
@@ -31,7 +34,7 @@
                     android:scheme="aop-part4-chapter05" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".activities.MainActivity" />
     </application>
 
 </manifest>

@@ -11,9 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitUtil {
-    val authApiService: AuthApiService by lazy { getGithubRetrofit().create(AuthApiService::class.java) }
+    val authApiService: AuthApiService by lazy { getGithubAuthRetrofit().create(AuthApiService::class.java) }
 
-    private fun getGithubRetrofit(): Retrofit {
+    private fun getGithubAuthRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Url.GITHUB_URL)
             .addConverterFactory(
@@ -26,6 +26,23 @@ object RetrofitUtil {
             .client(buildOkHttpClient())
             .build()
     }
+
+    val githubApiService: GithubApiService by lazy { getGithubRetrofit().create(GithubApiService::class.java) }
+
+    private fun getGithubRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(Url.GITHUB_API_URL)
+            .addConverterFactory(
+                GsonConverterFactory.create(
+                    GsonBuilder()
+                        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                        .create()
+                )
+            )
+            .client(buildOkHttpClient())
+            .build()
+    }
+
 
     private fun buildOkHttpClient(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()

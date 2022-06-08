@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.view.isGone
 import com.example.searchgithubapp.BuildConfig
-import com.example.searchgithubapp.MainActivity
 import com.example.searchgithubapp.databinding.ActivitySignInBinding
 import com.example.searchgithubapp.utillity.AuthTokenProvider
 import com.example.searchgithubapp.utillity.RetrofitUtil
