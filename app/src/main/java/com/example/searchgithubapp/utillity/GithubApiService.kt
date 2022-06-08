@@ -14,7 +14,7 @@ interface GithubApiService {
 
     @GET("repos/{owner}/{name}")
     suspend fun getRepository(
-        @Path("owner") owner: String,
+        @Path("owner") ownerLogin: String,
         @Path("name") repoName: String
-    ): GithubRepoEntity
+    ): Response<GithubRepoEntity>
 }

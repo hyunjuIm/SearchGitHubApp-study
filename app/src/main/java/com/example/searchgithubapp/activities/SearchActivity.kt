@@ -1,10 +1,12 @@
 package com.example.searchgithubapp.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.core.view.isGone
+import com.example.searchgithubapp.RepositoryActivity
 import com.example.searchgithubapp.data.entity.GithubRepoEntity
 import com.example.searchgithubapp.databinding.ActivitySearchBinding
 import com.example.searchgithubapp.utillity.RetrofitUtil
@@ -62,7 +64,12 @@ class SearchActivity : AppCompatActivity(), CoroutineScope {
 
     private fun setData(items: List<GithubRepoEntity>) {
         adapter.setRepositoryList(items) {
-            Toast.makeText(this, "entity : $it", Toast.LENGTH_SHORT).show()
+            startActivity(
+                Intent(this, RepositoryActivity::class.java).apply {
+                    putExtra(RepositoryActivity.REPOSITORY_OWNER_KEY, it.owner.login)
+                    putExtra(RepositoryActivity.REPOSITORY_NAME_KEY, it.name)
+                }
+            )
         }
     }
 }
