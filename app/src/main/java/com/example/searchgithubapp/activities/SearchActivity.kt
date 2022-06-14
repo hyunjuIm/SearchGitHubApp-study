@@ -4,9 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.core.view.isGone
-import com.example.searchgithubapp.RepositoryActivity
 import com.example.searchgithubapp.data.entity.GithubRepoEntity
 import com.example.searchgithubapp.databinding.ActivitySearchBinding
 import com.example.searchgithubapp.utillity.RetrofitUtil

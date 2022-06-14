@@ -1,4 +1,4 @@
-package com.example.searchgithubapp
+package com.example.searchgithubapp.activities
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
+import com.example.searchgithubapp.R
 import com.example.searchgithubapp.data.database.DataBaseProvider
 import com.example.searchgithubapp.data.entity.GithubRepoEntity
 import com.example.searchgithubapp.databinding.ActivityRepositoryBinding

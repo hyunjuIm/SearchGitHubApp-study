@@ -4,14 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.isGone
-import com.example.searchgithubapp.RepositoryActivity
 import com.example.searchgithubapp.data.database.DataBaseProvider
-import com.example.searchgithubapp.data.entity.GithubOwner
 import com.example.searchgithubapp.data.entity.GithubRepoEntity
 import com.example.searchgithubapp.databinding.ActivityMainBinding
 import com.example.searchgithubapp.view.RepositoryRecyclerAdapter
 import kotlinx.coroutines.*
-import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
@@ -83,24 +80,4 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             }
         }
     }
-
-    private suspend fun addMockData() = withContext(Dispatchers.IO) {
-        val mockData = (0 until 10).map {
-            GithubRepoEntity(
-                name = "repo $it",
-                fullName = "name $it",
-                owner = GithubOwner(
-                    "login",
-                    "avatarUrl"
-                ),
-                description = null,
-                language = null,
-                updatedAt = Date().toString(),
-                stargazersCount = it
-            )
-        }
-
-        repositoryDao.insertAll(mockData)
-    }
-
 }
